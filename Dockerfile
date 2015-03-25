@@ -7,7 +7,8 @@ RUN apt-get install -y \
       make libz-dev libxslt1-dev libxml2-dev python-dev \
       python-virtualenv g++ xz-utils gfortran liblzma-dev \
       libpq-dev libfreetype6-dev libblas-dev liblapack-dev \
-      libboost-python-dev libsnappy1 libsnappy-dev
+      libboost-python-dev libsnappy1 libsnappy-dev \
+      libjpeg-dev zlib1g-dev libpng12-dev
 
 RUN apt-get install -y \
       python-numpy python-scipy python-sklearn python-matplotlib \
