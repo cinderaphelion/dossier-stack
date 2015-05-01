@@ -33,13 +33,14 @@ ADD background-50000.tfidf.gz /
 RUN gunzip /background-50000.tfidf.gz
 
 # Finally, run the dossier.models web server.
+ENV PROCESSES 4
 EXPOSE 57312
 CMD uwsgi \
       --http-socket 0.0.0.0:57312 \
       --wsgi dossier.models.web.wsgi \
       --pyargv "-c /config.yaml" \
       --master \
-      --processes 1 \
+      --processes $PROCESSES \
       --vacuum \
       --harakiri 20 \
       --max-requests 5000
