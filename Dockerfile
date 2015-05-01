@@ -42,5 +42,4 @@ CMD uwsgi \
       --master \
       --processes $PROCESSES \
       --vacuum \
-      --harakiri 20 \
       --max-requests 5000
