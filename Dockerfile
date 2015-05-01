@@ -10,6 +10,7 @@ RUN apt-get install -y \
       libboost-python-dev libsnappy1 libsnappy-dev \
       libjpeg-dev zlib1g-dev libpng12-dev
 
+# We could install these with `pip`, but this is so much faster.
 RUN apt-get install -y \
       python-numpy python-scipy python-sklearn python-matplotlib \
       python-gevent uwsgi
@@ -20,13 +21,6 @@ RUN pip install nltk \
 
 # Now install dossier.models.
 RUN pip install --pre dossier.models
-RUN pip install gensim
-
-# There is a bug in our pairwise model code that can result in passing a
-# NaN to the sklearn model training. In old versions, this causes the model
-# to raise an exception. In newer versions, it emits a warning and keeps on
-# chugging. So we upgrade! ---AG
-RUN pip install --upgrade scikit-learn
 
 ADD config.yaml /config.yaml
 ADD background-50000.tfidf.gz /
