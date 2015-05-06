@@ -19,6 +19,9 @@ RUN apt-get install -y \
 RUN pip install nltk \
  && python -m nltk.downloader -d /usr/share/nltk_data all
 
+# Upgrade pip.
+RUN pip install --upgrade pip
+
 # Now install dossier.models.
 RUN pip install --pre 'dossier.models>=0.6.4'
 
