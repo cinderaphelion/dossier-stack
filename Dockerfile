@@ -20,7 +20,7 @@ RUN pip install nltk \
  && python -m nltk.downloader -d /usr/share/nltk_data all
 
 # Now install dossier.models.
-RUN pip install --pre dossier.models
+RUN pip install --pre 'dossier.models>=0.6.4'
 
 ADD config.yaml /config.yaml
 ADD background-50000.tfidf.gz /
