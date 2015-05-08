@@ -22,8 +22,11 @@ RUN pip install nltk \
 # Upgrade pip.
 RUN pip install --upgrade pip
 
+# Install psycopg2 in case we want a postgres backend.
+RUN pip install psycopg2
+
 # Now install dossier.models.
-RUN pip install --pre 'dossier.models>=0.6.4'
+RUN pip install --pre 'dossier.models>=0.6.5'
 
 ADD config.yaml /config.yaml
 ADD background-50000.tfidf.gz /
