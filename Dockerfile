@@ -8,7 +8,7 @@ RUN apt-get install -y \
       python-virtualenv g++ xz-utils gfortran liblzma-dev \
       libpq-dev libfreetype6-dev libblas-dev liblapack-dev \
       libboost-python-dev libsnappy1 libsnappy-dev \
-      libjpeg-dev zlib1g-dev libpng12-dev
+      libjpeg-dev zlib1g-dev libpng12-dev git
 
 # We could install these with `pip`, but this is so much faster.
 RUN apt-get install -y \
@@ -30,6 +30,13 @@ RUN pip install psycopg2
 # to raise an exception. In newer versions, it emits a warning and keeps on
 # chugging. So we upgrade! ---AG
 RUN pip install --upgrade scikit-learn
+
+# Blech. PyPI is misbehaving, so we have to check out some repos and build
+# from source.
+RUN cd /tmp && git clone git://github.com/dossier/dossier.label \
+ && cd /tmp/dossier.label && pip install . \
+ && cd /tmp && git clone git://github.com/dossier/dossier.web \
+ && cd /tmp/dossier.web && pip install .
 
 # Now install dossier.models.
 RUN pip install --pre 'dossier.models>=0.6.7'
