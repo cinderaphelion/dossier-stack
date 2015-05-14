@@ -26,7 +26,7 @@ RUN pip install --upgrade pip
 RUN pip install psycopg2
 
 # Now install dossier.models.
-RUN pip install --pre 'dossier.models>=0.6.5'
+RUN pip install --pre 'dossier.models>=0.6.7'
 
 ADD config.yaml /config.yaml
 ADD background-50000.tfidf.gz /
