@@ -25,6 +25,12 @@ RUN pip install --upgrade pip
 # Install psycopg2 in case we want a postgres backend.
 RUN pip install psycopg2
 
+# There is a bug in our pairwise model code that can result in passing a
+# NaN to the sklearn model training. In old versions, this causes the model
+# to raise an exception. In newer versions, it emits a warning and keeps on
+# chugging. So we upgrade! ---AG
+RUN pip install --upgrade scikit-learn
+
 # Now install dossier.models.
 RUN pip install --pre 'dossier.models>=0.6.7'
 
