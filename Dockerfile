@@ -8,7 +8,8 @@ RUN apt-get install -y \
       python-virtualenv g++ xz-utils gfortran liblzma-dev \
       libpq-dev libfreetype6-dev libblas-dev liblapack-dev \
       libboost-python-dev libsnappy1 libsnappy-dev \
-      libjpeg-dev zlib1g-dev libpng12-dev git
+      libjpeg-dev zlib1g-dev libpng12-dev git \
+      ssh
 
 # We could install these with `pip`, but this is so much faster.
 RUN apt-get install -y \
@@ -39,16 +40,25 @@ RUN cd /tmp && git clone git://github.com/dossier/dossier.label \
  && cd /tmp/dossier.web && pip install .
 
 # Now install dossier.models.
-RUN pip install --pre 'dossier.models>=0.6.7'
+RUN pip install --pre 'dossier.models>=0.6.8'
 
 ADD config.yaml /config.yaml
 ADD background-50000.tfidf.gz /
 RUN gunzip /background-50000.tfidf.gz
 
+RUN rm -f /etc/service/sshd/down
+ADD ssh_login.pub /tmp/ssh_login.pub
+RUN mkdir -p /root/.ssh \
+ && cat /tmp/ssh_login.pub >> /root/.ssh/authorized_keys \
+ && rm -f /tmp/ssh_login.pub
+
+ADD run.sh /run.sh
+RUN chmod +x /run.sh
+
 # Finally, run the dossier.models web server.
 ENV PROCESSES 4
 EXPOSE 57312
-CMD uwsgi \
+CMD /run.sh uwsgi \
       --http-socket 0.0.0.0:57312 \
       --wsgi dossier.models.web.wsgi \
       --pyargv "-c /config.yaml" \

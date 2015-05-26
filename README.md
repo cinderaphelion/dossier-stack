@@ -1,3 +1,7 @@
+**WARNING**: This Docker image runs SSH which enables logins using one of our
+SSH keys.
+
+
 # DossierStack Docker image
 
 This Docker image provides a running Dossier Stack, which is the backend used
