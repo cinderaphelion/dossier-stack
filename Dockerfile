@@ -40,7 +40,7 @@ RUN cd /tmp && git clone git://github.com/dossier/dossier.label \
  && cd /tmp/dossier.web && pip install .
 
 # Now install dossier.models.
-RUN pip install --pre 'dossier.models>=0.6.8'
+RUN pip install --pre 'dossier.models>=0.6.9'
 
 ADD config.yaml /config.yaml
 ADD background-50000.tfidf.gz /
