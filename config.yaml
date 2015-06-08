@@ -14,3 +14,11 @@ kvlayer:
   storage_type: filestorage
   filename: /demo.db
   storage_addresses: []
+
+# For MySQL.
+# Comment out above block.
+#kvlayer:
+#  storage_type: mysql
+#  storage_addresses: [localhost]
+#  user: test
+#  password: test
