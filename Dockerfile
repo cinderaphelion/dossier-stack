@@ -40,7 +40,11 @@ RUN cd /tmp && git clone git://github.com/dossier/dossier.label \
  && cd /tmp/dossier.web && pip install .
 
 # Now install dossier.models.
-RUN pip install --pre 'dossier.models>=0.6.9'
+RUN pip install --pre 'dossier.models>=0.6.12'
+
+# We do not have `kvlayer_mysql` in PyPI, so clone it and install manually.
+RUN cd /tmp && git clone git://github.com/diffeo/kvlayer_mysql \
+ && cd /tmp/kvlayer_mysql && pip install --allow-external mysql-connector-python .
 
 ADD config.yaml /config.yaml
 ADD background-50000.tfidf.gz /
